@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 
 class CoachBase(BaseModel):
     nom: str
@@ -19,5 +19,4 @@ class CoachToken(BaseModel):
     access_token: str
     token_type: str
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

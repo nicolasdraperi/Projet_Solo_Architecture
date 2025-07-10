@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 
 class JoueurBase(BaseModel):
     nom: str
@@ -10,8 +10,7 @@ class JoueurCreate(JoueurBase):
 class JoueurOut(JoueurBase):
     id: int
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 class JoueurLogin(BaseModel):
     email: EmailStr

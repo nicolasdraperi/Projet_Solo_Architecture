@@ -12,7 +12,7 @@ from app.schemas import notification as schemas_notification
 
 from app.dependencies import auth
 import bcrypt
-from datetime import datetime
+from datetime import datetime, timezone
 
 def authenticate_joueur(db, email, password):
     joueur = db.query(models_joueur.Joueur).filter(models_joueur.Joueur.email == email).first()
@@ -60,7 +60,8 @@ def payer_session(db: Session, session_id: int, montant: float):
     paiement = models_paiement.Paiement(
         session_id=session_id,
         montant=montant,
-        date=datetime.utcnow(),
+        date=datetime.now(timezone.utc)
+,
         statut="payé"
     )
     db.add(paiement)
