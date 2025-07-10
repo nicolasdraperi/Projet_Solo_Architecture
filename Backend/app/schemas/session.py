@@ -1,18 +1,27 @@
 from pydantic import BaseModel
 from datetime import datetime
+from typing import Optional
 
 class SessionBase(BaseModel):
-    dateHeure: datetime
-    duree: int
-    statut: str
-    joueur_id: int
-    coach_id: int
+    date_heure: datetime
+    duree_minutes: int
+    prix: float
 
-class SessionCreate(SessionBase):
-    pass
+class SessionCreate(BaseModel):
+    date_heure: datetime
+    duree_minutes: int
+    prix: float
+
+class SessionUpdate(BaseModel):
+    date_heure: datetime
+    duree_minutes: int
+    prix: float
 
 class SessionOut(SessionBase):
     id: int
+    statut: str
+    joueur_id: Optional[int]
+    coach_id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True

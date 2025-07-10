@@ -12,3 +12,11 @@ class JoueurOut(JoueurBase):
 
     class Config:
         orm_mode = True
+
+class JoueurLogin(BaseModel):
+    email: EmailStr
+    password: str
+
+class JoueurToken(BaseModel):
+    access_token: str
+    token_type: str = "bearer"

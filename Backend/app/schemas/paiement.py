@@ -7,8 +7,9 @@ class PaiementBase(BaseModel):
     statut: str
     session_id: int
 
-class PaiementCreate(PaiementBase):
-    pass
+class PaiementCreate(BaseModel):
+    session_id: int
+    montant: float
 
 class PaiementOut(PaiementBase):
     id: int

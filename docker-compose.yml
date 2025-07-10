@@ -25,6 +25,8 @@ services:
     image: bitnami/mariadb-galera:latest
     container_name: maria_primary
     restart: unless-stopped
+    ports:
+      - "3306:3306"
     environment:
       - MARIADB_GALERA_CLUSTER_NAME=coaching-cluster
       - MARIADB_GALERA_CLUSTER_ADDRESS=gcomm://

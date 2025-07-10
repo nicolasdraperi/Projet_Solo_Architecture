@@ -11,5 +11,13 @@ class CoachCreate(CoachBase):
 class CoachOut(CoachBase):
     id: int
 
+class CoachLogin(BaseModel):
+    email: EmailStr
+    password: str
+
+class CoachToken(BaseModel):
+    access_token: str
+    token_type: str
+
     class Config:
         orm_mode = True

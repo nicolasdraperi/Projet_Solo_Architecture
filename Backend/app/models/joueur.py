@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
-from app.core.database import Base
 from sqlalchemy.orm import relationship
+from app.core.database import Base
 
 class Joueur(Base):
     __tablename__ = "joueurs"
@@ -10,6 +10,5 @@ class Joueur(Base):
     email = Column(String(100), unique=True, index=True, nullable=False)
     password = Column(String(128), nullable=False)
 
-
-
-notifications = relationship("Notification", back_populates="joueur")
+    notifications = relationship("Notification", back_populates="joueur", cascade="all, delete-orphan")
+    
