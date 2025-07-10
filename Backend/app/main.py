@@ -7,12 +7,20 @@ import app.models.coach
 import app.models.session
 import app.models.paiement
 import app.models.notification
+from fastapi.middleware.cors import CORSMiddleware
 
 print("Création des tables...")
 Base.metadata.create_all(bind=engine)
 print("Terminé")
 
 app = FastAPI(title="API Coaching")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # autorise ton front
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Inclure tes routers
 app.include_router(joueur_router.router, prefix="/joueur", tags=["Joueur"])

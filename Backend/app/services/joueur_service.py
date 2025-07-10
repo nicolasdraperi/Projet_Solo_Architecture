@@ -80,3 +80,6 @@ def envoyer_notification(db: Session, joueur_id: int, message: str):
     db.commit()
     db.refresh(notif)
     return notif
+
+def get_reservations_for_joueur(db: Session, joueur_id: int):
+    return db.query(models_session.Session).filter(models_session.Session.joueur_id == joueur_id).all()

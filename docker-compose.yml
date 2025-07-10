@@ -93,3 +93,31 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  # ──────────────────────────
+  # Backend FastAPI
+  # ──────────────────────────
+  backend:
+    build: ./backend
+    container_name: backend
+    restart: unless-stopped
+    depends_on:
+      - maria_primary
+    environment:
+      - DATABASE_URL=mysql+pymysql://root:rootpass@maria_primary:3306/
+    ports:
+      - "8000:8000"
+    networks:
+      - dbnet
+
+  # ──────────────────────────
+  # Frontend React
+  # ──────────────────────────
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    networks:
+      - dbnet

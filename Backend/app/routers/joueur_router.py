@@ -79,3 +79,11 @@ def envoyer_notification(
     current_user: schemas_joueur.JoueurOut = Depends(get_current_joueur)
 ):
     return joueur_service.envoyer_notification(db, current_user.id, message)
+
+@router.get("/mes-reservations", response_model=list[schemas_session.SessionOut])
+def mes_reservations(
+    db: Session = Depends(get_db),
+    current_user: schemas_joueur.JoueurOut = Depends(get_current_joueur)
+):
+    return joueur_service.get_reservations_for_joueur(db, current_user.id)
+
