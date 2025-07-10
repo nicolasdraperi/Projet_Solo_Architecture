@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Float
 from sqlalchemy.orm import relationship
-from app.core.database import Base
+from core.database import Base
 
 class Session(Base):
     __tablename__ = "sessions"

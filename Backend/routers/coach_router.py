@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app.core.database import get_db
-from app.services import coach_service
-from app.schemas import coach as schemas_coach
-from app.schemas import session as schemas_session
+from core.database import get_db
+from services import coach_service
+from schemas import coach as schemas_coach
+from schemas import session as schemas_session
 
-from app.dependencies import auth
-from app.dependencies.auth import get_current_coach
+from dependencies import auth
+from dependencies.auth import get_current_coach
 
 router = APIRouter(
     tags=["Coach"]

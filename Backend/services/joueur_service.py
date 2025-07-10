@@ -1,16 +1,16 @@
 from sqlalchemy.orm import Session
-from app.models import joueur as models_joueur
-from app.models import coach as models_coach
-from app.models import session as models_session
-from app.models import paiement as models_paiement
-from app.models import notification as models_notification
+from models import joueur as models_joueur
+from models import coach as models_coach
+from models import session as models_session
+from models import paiement as models_paiement
+from models import notification as models_notification
 
-from app.schemas import joueur as schemas_joueur
-from app.schemas import session as schemas_session
-from app.schemas import paiement as schemas_paiement
-from app.schemas import notification as schemas_notification
+from schemas import joueur as schemas_joueur
+from schemas import session as schemas_session
+from schemas import paiement as schemas_paiement
+from schemas import notification as schemas_notification
 
-from app.dependencies import auth
+from dependencies import auth
 import bcrypt
 from datetime import datetime, timezone
 

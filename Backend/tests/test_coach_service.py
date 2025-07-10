@@ -5,9 +5,9 @@ from datetime import datetime, timezone
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from app.services import coach_service
-from app.models import session as models_session
-from app.models import coach as models_coach
+from services import coach_service
+from models import session as models_session
+from models import coach as models_coach
 
 def test_authenticate_coach_ok():
     db = MagicMock()

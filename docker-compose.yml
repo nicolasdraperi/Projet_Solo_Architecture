@@ -104,7 +104,7 @@ services:
     depends_on:
       - maria_primary
     environment:
-      - DATABASE_URL=mysql+pymysql://root:rootpass@maria_primary:3306/
+      - DATABASE_URL=mysql+pymysql://root:rootpass@maria_primary:3306/coaching_db
     ports:
       - "8000:8000"
     networks:

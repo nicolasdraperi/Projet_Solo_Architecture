@@ -1,13 +1,16 @@
 from fastapi import FastAPI
-from app.routers import joueur_router 
-from app.routers import coach_router
-from app.core.database import Base, engine
-import app.models.joueur
-import app.models.coach
-import app.models.session
-import app.models.paiement
-import app.models.notification
+
+from routers import joueur_router
+from routers import coach_router
+from core.database import Base, engine
+import models.joueur
+import models.coach
+import models.session
+import models.paiement
+import models.notification
+
 from fastapi.middleware.cors import CORSMiddleware
+
 
 print("Création des tables...")
 Base.metadata.create_all(bind=engine)

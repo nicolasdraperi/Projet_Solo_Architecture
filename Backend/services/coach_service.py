@@ -1,12 +1,13 @@
 from sqlalchemy.orm import Session
-from app import models
-from app.schemas import coach as schemas_coach
-from app.schemas import session as schemas_session
-from app.models import coach as models_coach
-from app.models import session as models_session
-from app.dependencies import auth
+import models
+from schemas import coach as schemas_coach
+from schemas import session as schemas_session
+from models import coach as models_coach
+from models import session as models_session
+from dependencies import auth
 import bcrypt
 from datetime import datetime
+
 
 def authenticate_coach(db: Session, email: str, password: str):
     coach = db.query(models_coach.Coach).filter(models_coach.Coach.email == email).first()

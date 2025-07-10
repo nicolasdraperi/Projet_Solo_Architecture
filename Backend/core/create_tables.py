@@ -1,9 +1,9 @@
-from app.core.database import Base, engine
-import app.models.joueur
-import app.models.coach
-import app.models.session
-import app.models.paiement
-import app.models.notification
+from core.database import Base, engine
+import models.joueur
+import models.coach
+import models.session
+import models.paiement
+import models.notification
 
 print("Création des tables...")
 Base.metadata.create_all(bind=engine)

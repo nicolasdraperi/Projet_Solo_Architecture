@@ -1,18 +1,18 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app.core.database import get_db
-from app.services import joueur_service
-from app.schemas import joueur as schemas_joueur
-from app.schemas import session as schemas_session
-from app.schemas import paiement as schemas_paiement
-from app.schemas import notification as schemas_notification
-from app.models import coach as models_coach
-from app.models import session as models_session
-from app.schemas import coach as schemas_coach
+from core.database import get_db
+from services import joueur_service
+from schemas import joueur as schemas_joueur
+from schemas import session as schemas_session
+from schemas import paiement as schemas_paiement
+from schemas import notification as schemas_notification
+from models import coach as models_coach
+from models import session as models_session
+from schemas import coach as schemas_coach
+from dependencies import auth
+from dependencies.auth import get_current_joueur
 
-from app.dependencies import auth
-from app.dependencies.auth import get_current_joueur
 
 router = APIRouter(
     tags=["Joueur"]

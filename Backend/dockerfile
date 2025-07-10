@@ -1,15 +1,22 @@
+#Image de base
 FROM python:3.12-alpine
 
+#Répertoire de travail dans le conteneur
 WORKDIR /app
 
+#Installer git et autres dépendances système
 RUN apk update && apk add --no-cache git
 
+#Copier le fichier des requirements et installer
 COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
+#Copier tout le code de l'app
 COPY . .
 
+#Exposer le port
 EXPOSE 8000
 
+#Commande pour lancer l'app
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

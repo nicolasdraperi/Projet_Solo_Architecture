@@ -4,8 +4,8 @@ from unittest.mock import MagicMock
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from app.models import joueur as models_joueur
-from app.services import joueur_service
+from models import joueur as models_joueur
+from services import joueur_service
 
 import bcrypt
 

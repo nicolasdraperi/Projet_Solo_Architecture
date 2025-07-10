@@ -5,9 +5,9 @@ from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 import bcrypt
-from app.models import joueur as models_joueur
-from app.models import coach as models_coach
-from app.core.database import get_db
+from models import joueur as models_joueur
+from models import coach as models_coach
+from core.database import get_db
 import os
 from dotenv import load_dotenv
 
