@@ -1,16 +1,10 @@
-FROM node:20-alpine
-
+# Builder
+FROM node:20-alpine as builder
 WORKDIR /app
-
 COPY . .
-
 RUN npm install
 RUN npm run build
 
-# Utiliser un serveur nginx pour servir le build
+# Serveur Nginx
 FROM nginx:alpine
-COPY --from=0 /app/dist /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+COPY --from=builder /app/build /usr/share/nginx/html
