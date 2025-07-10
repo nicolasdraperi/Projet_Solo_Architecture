@@ -1,0 +1,93 @@
+##############################
+# Réseaux & volumes globaux  #
+##############################
+
+networks:
+  dbnet:
+
+volumes:
+  maria_primary_data:
+  maria_node1_data:
+  maria_node2_data:
+
+##############################
+# Services                   #
+##############################
+
+services:
+
+  # ──────────────────────────
+  # MariaDB-Galera (3 nœuds)
+  # ──────────────────────────
+
+  # Primary — BOOTSTRAP
+  maria_primary:
+    image: bitnami/mariadb-galera:latest
+    container_name: maria_primary
+    restart: unless-stopped
+    environment:
+      - MARIADB_GALERA_CLUSTER_NAME=coaching-cluster
+      - MARIADB_GALERA_CLUSTER_ADDRESS=gcomm://
+      - MARIADB_GALERA_CLUSTER_BOOTSTRAP=yes
+      - MARIADB_GALERA_FORCE_SAFETOBOOTSTRAP=yes
+      - MARIADB_GALERA_ENABLE=true
+      - MARIADB_ROOT_PASSWORD=rootpass
+      - MARIADB_GALERA_MARIABACKUP_USER=backup
+      - MARIADB_GALERA_MARIABACKUP_PASSWORD=backuppass
+    volumes:
+      - maria_primary_data:/bitnami/mariadb
+    networks:
+      - dbnet
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -uroot -prootpass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Node 1 — JOINER
+  maria_node1:
+    image: bitnami/mariadb-galera:latest
+    container_name: maria_node1
+    restart: unless-stopped
+    depends_on:
+      - maria_primary
+    environment:
+      - MARIADB_GALERA_CLUSTER_NAME=coaching-cluster
+      - MARIADB_GALERA_CLUSTER_ADDRESS=gcomm://maria_primary,maria_node1,maria_node2
+      - MARIADB_GALERA_ENABLE=true
+      - MARIADB_ROOT_PASSWORD=rootpass
+      - MARIADB_GALERA_MARIABACKUP_USER=backup
+      - MARIADB_GALERA_MARIABACKUP_PASSWORD=backuppass
+    volumes:
+      - maria_node1_data:/bitnami/mariadb
+    networks:
+      - dbnet
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -uroot -prootpass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Node 2 — JOINER
+  maria_node2:
+    image: bitnami/mariadb-galera:latest
+    container_name: maria_node2
+    restart: unless-stopped
+    depends_on:
+      - maria_primary
+    environment:
+      - MARIADB_GALERA_CLUSTER_NAME=coaching-cluster
+      - MARIADB_GALERA_CLUSTER_ADDRESS=gcomm://maria_primary,maria_node1,maria_node2
+      - MARIADB_GALERA_ENABLE=true
+      - MARIADB_ROOT_PASSWORD=rootpass
+      - MARIADB_GALERA_MARIABACKUP_USER=backup
+      - MARIADB_GALERA_MARIABACKUP_PASSWORD=backuppass
+    volumes:
+      - maria_node2_data:/bitnami/mariadb
+    networks:
+      - dbnet
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -uroot -prootpass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
